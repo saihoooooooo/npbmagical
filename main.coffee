@@ -9,7 +9,7 @@ targeturl =
     p: 'http://bis.npb.or.jp/2013/stats/std_p.html'
 
 if targeturl[process.argv[2]] is undefined
-    util.puts('Usage: coffee main.js [c|p]')
+    util.puts('Usage: coffee main.coffee [c|p]')
     process.exit(1)
 
 request
