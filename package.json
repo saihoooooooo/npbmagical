@@ -1,0 +1,10 @@
+{
+    "name": "npbmagical",
+    "version": "0.0.0",
+    "private": true,
+    "dependencies": {
+        "request": ">=2.16.6",
+        "cheerio": ">=0.10.8"
+        "cheerio": ">=2.0.4"
+    }
+}
