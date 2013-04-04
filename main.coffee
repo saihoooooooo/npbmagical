@@ -1,6 +1,3 @@
-# nodeでjsdomのかわりにcheerioを使ってwebスクレイパー書いてみた http://blog.miyahira.me/2012/04/nodejsdomcheerio.html
-# 文字コードがEUCのページをnode.jsでスクレイピングする時の問題と解決方法(requestモジュール利用)  http://niwaringo.tumblr.com/post/22655946819/euc-node-js-request
-
 util = require 'util'
 request = require 'request'
 cheerio = require 'cheerio'
@@ -21,12 +18,13 @@ request
     (error, response, body) ->
         return null if error or response.statusCode != 200
 
-        # 文字コード変換
+        # Convert to UTF-8
         conv = new iconv.Iconv('sjis', 'utf8')
         $ = cheerio.load conv.convert(body).toString(),
             lowerCaseTags: true
             lowerCaseAttributeNames: true
 
+        # gamecnt = win + lose + even
         getGamecnt = (text) ->
             array = text.match(/[0-9]/g)
             if array?
@@ -37,7 +35,6 @@ request
 
         $('.stdtblSubmain > tr').each (i, elem) ->
             return null if i == 0
-
             npbMmagical.add
                 name   : $(this).find('.stdTeam').first().text()
                 win    : parseInt($(this).children().eq(2).text(), 10)
@@ -52,39 +49,5 @@ request
                     getGamecnt($(this).children().eq(14).text())
                 ]
             null
-
-        ### テストコード
-        npbMmagical.add
-            name   : '日本ハム'
-            win    : 72
-            lose   : 56
-            even   : 11
-            gamecnt: [0, 24, 0, 0, 0, 0]
-        .add
-            name: '西武'
-            win : 69
-            lose: 59
-            even: 8
-        .add
-            name: 'ソフトバンク'
-            win : 65
-            lose: 60
-            even: 12
-        .add
-            name: '楽天'
-            win : 62
-            lose: 64
-            even: 9
-        .add
-            name: 'ロッテ'
-            win : 59
-            lose: 62
-            even: 15
-        .add
-            name: 'オリックス'
-            win : 51
-            lose: 76
-            even: 10
-        ###
 
         npbMmagical.magical()

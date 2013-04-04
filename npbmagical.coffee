@@ -22,7 +22,7 @@ class NpbMagical
         @
     magical: ->
         for teamA, i in @teams
-            # マジック対象チームの探索
+            # Search of a team targeted for magic
             maxRate = 0
             for teamX, j in @teams
                 if i isnt j && maxRate < teamX.rate
@@ -30,14 +30,14 @@ class NpbMagical
                     teamB = teamX
                     gamecnt = teamA.gamecnt[j]
 
-            # マジック算出
+            # calculate
             fill = if teamA.rate isnt teamB.rate then 1 else 0
             magic = Math.floor(teamA.denom / teamB.denom * teamB.winnable) - teamA.win + fill
             teamA.magic = magic
 
-            # マジック点灯状態を区別して出力
+            # Lighting or hiding
             if teamA.rest - (ONE_TEAM_GAME_CNT - gamecnt) >= teamA.magic
-                console.log teamA.name + ' ' + teamA.magic
+                console.log teamA.name + ' \\' + teamA.magic + '/'
             else
                 console.log teamA.name + ' (' + teamA.magic + ')'
         null
