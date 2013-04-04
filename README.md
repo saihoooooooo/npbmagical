@@ -1,4 +1,4 @@
 npbmagical
 ==========
 
-Abbreviation of nippon professional baseball magic calculator
+Abbreviation of nippon professional baseball magic calculator.
